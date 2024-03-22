@@ -1,0 +1,74 @@
+FROM fedora:latest AS base
+
+ARG user
+ARG uid
+
+ENV DEBIAN_FRONTEND noninteractive
+
+# Install dependencies
+# RUN dnf update -y
+# RUN dnf install -y software-properties-common dnf-utils
+# RUN dnf install -y dnf- transport-https lsb-release ca-certificates wget 
+# RUN wget -O /etc/dnf/trusted.gpg.d/php.gpg https://packages.sury.org/php/dnf.gpg
+# RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/dnf/sources.list.d/php.list
+# RUN add-dnf-repository -y ppa:ondrej/php
+# RUN sed -i 's/noble/jammy/g' /etc/dnf/sources.list.d
+# RUN echo "Package: libgd3\
+#          Pin: release n=lunar\
+#          Pin-Priority: 900"
+
+
+RUN dnf update -y
+RUN dnf install initscripts -y
+RUN dnf install -y http://rpms.remirepo.net/fedora/remi-release-39.rpm
+RUN dnf module install -y php:remi-8.3
+RUN dnf install -y php\
+    php-cli\
+    php-common\
+    php-fpm\
+    php-mysql\
+    php-zip\
+    php-gd\
+    php-mbstring\
+    php-curl\
+    php-xml\
+    php-bcmath\
+    php-pdo \
+    php-soap
+
+# RUN sed -e 's/127.0.0.1:9000/0.0.0.0:9000/'\ 
+#         -e '/allowed_clients/d'\
+#         -e '/catch_workers_output/s/^;//'\
+#         -e '/error_log/d'\
+#         -i /etc/php-fpm.d/www.conf
+
+# Install composer
+RUN dnf install -y curl
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN groupadd -g $uid www
+RUN useradd -G www,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
+
+RUN chown -R www-data:www-data /var/www
+WORKDIR /var/www/
+COPY . .
+
+RUN composer install
+
+RUN php artisan storage:link
+# RUN php artisan optimize
+
+# RUN chown 0777 /var/run/php-fpm.sock
+RUN mkdir /var/run/php-fpm
+RUN systemctl enable php-fpm.service
+
+COPY ./php-fpm/ /etc/php-fpm.d/
+COPY ./php-fpm-logging/ /var/log/php-fpm/
+# CMD ["php-fpm", "-F"]
+# EXPOSE 9000
+EXPOSE 9003
+ENTRYPOINT /usr/sbin/php-fpm --nodaemonize
+
+# USER $user

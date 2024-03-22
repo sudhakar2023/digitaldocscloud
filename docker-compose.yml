@@ -1,0 +1,93 @@
+version: '3.8'
+services:  
+  #MySQL Service
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DB:-drms_vault}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD:-yes}
+      # MYSQL_ROOT_PASSWORD: drm553cur3
+      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD:-L@rav3l.}
+      MYSQL_USER: ${MYSQL_DB_USER:-drms}
+    volumes:
+      - dbdata:/var/lib/mysql/
+      # - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+  #Nginx Service
+  # webserver:
+  #   image: nginx:latest
+  #   container_name: webserver
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./:/var/www
+  #     - ./nginx/conf.d/:/etc/nginx/conf.d/
+  #     - ./nginx-logs:/var/log/nginx
+  #   depends_on:
+  #     - app
+  #     - db
+  #   networks:
+  #     - app-network
+#WEB_SERVER
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.web_server
+    image: webserver
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: webserver
+      SERVICE_TAGS: prod
+    ports:
+      - "80:80"
+      - "443:443"  
+    # working_dir: /var/www/html
+    # volumes:
+      # - ./:/var/www/html
+      # - ./etc/php/8.1/local.ini:/usr/local/etc/php/conf.d/local.ini
+    depends_on:
+      - db
+      - app
+    networks:
+      - app-network
+  #PHP
+  app:
+    build:
+      args:
+        user: www-data
+        uid: 1000
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: drms-vault
+    container_name: drms-vault
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: drms-vault
+      SERVICE_TAGS: prod
+    ports:
+      - "9003:9000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+#Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local

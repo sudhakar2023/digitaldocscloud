@@ -1,0 +1,18 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "main"]
+	url = https://github.com/shei25420/drms-main.git
+	fetch = +refs/heads/*:refs/remotes/main/*
+[lfs]
+	repositoryformatversion = 0
+	allowincompletepush = true
+[lfs "https://github.com/shei25420/drms-main.git/info/lfs"]
+	access = basic
+[branch "master"]
+	remote = main
+	merge = refs/heads/main
+[pull]
+	rebase = false

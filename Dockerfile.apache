@@ -1,0 +1,9 @@
+FROM php:8.3-zts-alpine
+WORKDIR /var/www/html
+RUN apk update
+RUN curl -sS https://getcomposer.org/installer | php -- --version=2.6.6 --install-dir=/usr/local/bin --filename=composer
+COPY . .
+RUN composer install
+RUN composer update
+EXPOSE 8000
+CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
