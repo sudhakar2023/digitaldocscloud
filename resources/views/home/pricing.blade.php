@@ -21,8 +21,8 @@
 							<ul>
 								<li><b>{{ $subscription->total_user  }}</b> User Limit</li>
 								<li><b>{{ $subscription->total_document  }}</b> Document Limit</li>
-								<li>Document History  <b>{{ $subscription->enabled_document_history ? "Enabled" : "Disabled"  }}</b></li>
 								<li>User History <b>{{ $subscription->enabled_user_history ? "Enabled" : "Disabled" }}</b></li>
+								<li>Document History  <b>{{ $subscription->enabled_document_history ? "Enabled" : "Disabled"  }}</b></li>
 							</ul>
 						</div>
 						<div class="pricingTable-signup">
