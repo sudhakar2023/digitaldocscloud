@@ -127,7 +127,7 @@
   "Invoice" : "Rechnung ",
   "Roles & Permissions" : "Rollen und Berechtigungen ",
   "Dedicated Features" : "Dedizierte Features ",
-  "Dashboard" : "Dashboard ",
+  "Dashboard" : "Armaturenbrett ",
   "Invoice detail" : "Rechnungsdetails ",
   "Expenses" : "Ausgaben ",
   "Uer Roles & Permissions" : "Uer-Rollen und Berechtigungen ",
@@ -192,7 +192,6 @@
   "Edit Support" : "Unterstützung bearbeiten ",
   "Document Name" : "Dokumentname ",
   "Created By" : "Erstellt von ",
-  "Tags" : "Tags ",
   "Version History" : "Versionsverlauf ",
   "New Version" : "Neue Version ",
   "Upload" : "Hochladen ",
@@ -444,5 +443,10 @@
   "Enter tag title" : "Tag-Titel eingeben ",
   "Tag" : "Tag ",
   "Create Tag" : "Tag erstellen ",
-  "Edit Tag" : "Tag bearbeiten"
+  "Edit Tag" : "Tag bearbeiten",
+  "Basic": "Bāsik",
+  "Standard": "Stændəd",
+  "Premium": "Prämie",
+  "Monthly": "Monatlich",
+  "Tags": "Stichworte"
 }

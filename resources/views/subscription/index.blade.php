@@ -25,24 +25,13 @@
             <div class="col-md-4">
                 <div class="codex-pricingtbl">
                     <div class="price-header">
-                        <h2>{{$subscription->name}}</h2>
-                        <div class="price-value">{{env('CURRENCY_SYMBOL').$subscription->price}}
-                            <span>/ {{$subscription->duration}}</span></div>
+                        <h2>{{__($subscription->name)}}</h2>
+                        <div class="price-value">{{env('CURRENCY_SYMBOL').$subscription->price}} / {{__($subscription->duration)}}
+                        </div>
                     </div>
                     <ul class="cdxprice-list">
                         <li><span>{{$subscription->total_user - (Auth::user()->subscription == $subscription->id ? Auth::user()->user_usage : 0)}}</span>{{__('User Limit')}}</li>
                         <li><span>{{$subscription->total_document  - (Auth::user()->subscription == $subscription->id ? Auth::user()->document_usage : 0)}}</span>{{__('Document Limit')}}</li>
-                        <li>
-                            <div class="delet-mail">
-                                @if($subscription->enabled_document_history==1)
-                                    <i class="text-success mr-4" data-feather="check-circle"></i>
-                                @else
-                                    <i class="text-danger mr-4" data-feather="x-circle"></i>
-                                @endif
-
-                                {{__('Document History')}}
-                            </div>
-                        </li>
                         <li>
                             <div class="delet-mail">
                                 @if($subscription->enabled_logged_history==1)
@@ -50,7 +39,17 @@
                                 @else
                                     <i class="text-danger mr-4" data-feather="x-circle"></i>
                                 @endif
-                                {{__('User Logged History')}}
+                                {{__('User History')}}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="delet-mail">
+                                @if($subscription->enabled_document_history==1)
+                                    <i class="text-success mr-4" data-feather="check-circle"></i>
+                                @else
+                                    <i class="text-danger mr-4" data-feather="x-circle"></i>
+                                @endif
+                                {{__('Document History')}}
                             </div>
                         </li>
                         @if(\Auth::user()->type!='super admin' && \Auth::user()->subscription == $subscription->id)

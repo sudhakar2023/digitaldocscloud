@@ -9,7 +9,7 @@
     <meta name="keywords" content="">
     <title>{{ env('APP_NAME') }}</title>
     <!-- shortcut icon-->
-    <link rel="shortcut icon" href="{{ asset(Storage::url('upload/logo')) . '/favicon.png' }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset(Storage::url('upload/logo')) . '/favicon.png?v=1' }}" type="image/png">
     <!-- Fonts css-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -184,27 +184,8 @@
 </style>
     <!-- header start-->
     @include("home.header")
-    
-    <!-- intro start-->
-    @include("home.intro")
-    
-    <!-- features start-->
-    @include('home.features')
 
-    <!-- access banner 1 start-->
-    @include('home.access_banner_1')
-
-    <!-- access banner 2 start-->
-    @include('home.features_2')
-
-    <!-- Pricing Section -->
-    @include('home.pricing')
-
-    <!-- Call to Action (CTA) Section -->
-    @include('home.features_1')
-
-    {{-- <!-- Contact Section -->
-    @include('home.contact') --}}
+    @yield("content")
 
     <!-- footer start-->
     @include('home.footer')

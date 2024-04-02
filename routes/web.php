@@ -279,3 +279,9 @@ Route::get('/pricing', [PricingController::class, 'index']);
 //-------------------------------AWS-------------------------------------------
 Route::get('/aws/register', [AwsMarketplaceController::class, 'register']);
 Route::post('/aws/register', [AwsMarketplaceController::class, 'registerCustomer']);
+
+//-------------------------------Terms And Conditions-------------------------------------------
+Route::get('/terms', [HomeController::class, 'terms']);
+
+//-------------------------------Privacy-------------------------------------------
+Route::get('/privacy', [HomeController::class, 'privacy']);

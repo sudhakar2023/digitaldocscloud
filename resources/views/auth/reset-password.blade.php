@@ -29,6 +29,7 @@
                 <span class="invalid-password text-danger" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="newpassword">{{__('Confirm Password')}}</label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AwsUsage;
 use App\Models\Category;
 use App\Models\Document;
 use App\Models\DocumentComment;
@@ -44,7 +45,8 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
-        if (\Auth::user()->can('create document') || \Auth::user()->can('create my document')) {
+        $user = \Auth::user();
+        if ($user->can('create document') || $user->can('create my document')) {
             $validator = \Validator::make(
                 $request->all(), [
                 'name' => 'required|regex:/^[\s\w-]*$/',
@@ -60,12 +62,11 @@ class DocumentController extends Controller
 
                 return redirect()->back()->with('error', $messages->first());
             }
-
-            $ids = \Auth::user()->parentId();
+            $ids = $user->parentId();
             $authUser = \App\Models\User::find($ids);
             $total_document = $authUser->document_usage;
             $subscription = Subscription::find($authUser->subscription);
-            if (($total_document < $subscription->total_document) || $subscription->total_document == 0) {
+            if ($user->awsCustomer || (($total_document < $subscription->total_document) || ($subscription->total_document == 0))) {
                 $document = new Document();
                 $document->name = $request->name;
                 $document->category_id = $request->category_id;
@@ -102,6 +103,14 @@ class DocumentController extends Controller
                 $data['document_id'] = $document->id;
                 DocumentHistory::history($data);
 
+                if ($user->awsCustomer) {
+                    AwsUsage::create([
+                        'subscription_id' => $user->subscription,
+                        'aws_customer_id' => $user->aws_customer_id,
+                        'dimension' => 'document',
+                        'usage' => 1
+                    ]);
+                }
                 $authUser->document_usage++;
                 $authUser->save();
                 return redirect()->back()->with('success', __('Document successfully created!'));
@@ -513,5 +522,7 @@ class DocumentController extends Controller
         }
     }
 
+    private static function saveDocument () {
 
+    }
 }

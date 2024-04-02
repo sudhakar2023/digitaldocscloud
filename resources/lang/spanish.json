@@ -127,7 +127,7 @@
   "Invoice" : "Factura ",
   "Roles & Permissions" : "Roles y permisos ",
   "Dedicated Features" : "Características específicas ",
-  "Dashboard" : "Dashboard ",
+  "Dashboard" : "Panel ",
   "Invoice detail" : "Detalle de factura ",
   "Expenses" : "Gastos ",
   "Uer Roles & Permissions" : "Roles y permisos de Uer ",
@@ -444,5 +444,9 @@
   "Enter tag title" : "Escriba el título del código ",
   "Tag" : "Etiqueta ",
   "Create Tag" : "Crear código ",
-  "Edit Tag" : "Editar código"
+  "Edit Tag" : "Editar código",
+  "Basic": "Básico",
+  "Standard": "Estándar",
+  "Premium": "Premium",
+  "Monthly": "Mensual"
 }

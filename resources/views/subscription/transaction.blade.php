@@ -17,7 +17,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="display dataTable cell-border datatbl-advance" >
+                    <table class="display dataTable cell-border datatbl-advance" width="100%">
                         <thead>
                         <tr>
                             <th>{{__('User')}}</th>

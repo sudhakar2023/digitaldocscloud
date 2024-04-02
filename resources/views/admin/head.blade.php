@@ -4,6 +4,8 @@
 
     $favicon_name = $admin_favicon ? $admin_favicon : 'favIcon.png';
     $favicon = \Illuminate\Support\Facades\Storage::disk('public')->url('upload/favicons/'.$favicon_name);
+
+    $settings=\App\Models\Custom::settings();
 @endphp
 <head>
     <!-- Required meta tags-->
@@ -14,8 +16,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <title>{{!empty($app_name)?$app_name:env('APP_NAME')}} - @yield('page-title') </title>
     <!-- shortcut icon-->
-    <link rel="icon" href="{{$favicon}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{$favicon}}" type="image/x-icon">
+    <link rel="icon" href="{{ asset(Storage::url('upload/logo')) . '/favicon.png?v=1' }}" type="image/png">
     <!-- Fonts css-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +44,7 @@
 
     <!-- Custom css-->
     @php
-        $style=$settings['theme_color']=='color1'?'color4.css':$settings['theme_color'].'.css';
+        $style=$settings['theme_color']=='color1'? 'color4.css':$settings['theme_color'].'.css';
     @endphp
     <link href="{{ asset('assets/css/'.$style) }}" id="customstyle" rel="stylesheet">
 

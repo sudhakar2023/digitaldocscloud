@@ -15,6 +15,15 @@
 
         </div>
         {{Form::open(array('route'=>'login','method'=>'post','id'=>'loginForm','class'=> 'login-form' ))}}
+            @if(session()->has('error'))
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-danger" role="alert">
+                            {{ session()->get('error')  }}
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="form-group">
                 {{Form::label('email','Email',array('class'=>'form-label'))}}
                 {{Form::text('email',null,array('class'=>'form-control','placeholder'=>__('Enter Your Email')))}}

@@ -8,9 +8,9 @@
 																												style="visibility: visible; animation-duration: 0.8s; animation-name: fadeInUp;">500+
 																												Documents</h2>
 																								<p class="wow fadeInUp" data-wow-duration="1.3s"
-																												style="visibility: visible; animation-duration: 1.3s; animation-name: fadeInUp;">Digital Docs Cloud software refers to the various features and
-																												functionalities that the software offers to help organizations manage their digital
-																												documents effectively.</p>
+																												style="visibility: visible; animation-duration: 1.3s; animation-name: fadeInUp;">Digital
+																												DocsCloud Software is an innovative document-storing application designed to streamline your
+																												document management process while prioritizing security and accessibility.</p>
 																				</div>
 																</div>
 												</div>

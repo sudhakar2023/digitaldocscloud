@@ -135,13 +135,17 @@ function datatable(){
     });
 
 
+    var tbl = $('.datatbl-advance');
     //Advance Datatable
-    $('.datatbl-advance').DataTable({
+    tbl.DataTable({
         "scrollX": true,
         stateSave: false,
         dom: 'Bfrtip',
         buttons: [
             'print','excel','pdf', 'csv', 'copy',
-        ]
+        ],
+        customize : function(doc){
+            doc.content[0].table.widths = ['*', '*', '*', '*', '*' ];
+        }
     });
 }

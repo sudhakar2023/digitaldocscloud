@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AwsUsage;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -82,7 +83,8 @@ class UserController extends Controller
         }
         else
         {
-            if(\Auth::user()->can('create user'))
+            $authenticated = \Auth::user();
+            if($authenticated->can('create user'))
             {
                 $validator = \Validator::make(
                     $request->all(), [
@@ -101,11 +103,11 @@ class UserController extends Controller
                     return redirect()->back()->with('error', $messages->first());
                 }
 
-                $ids     = \Auth::user()->parentId();
+                $ids     = $authenticated->parentId();
                 $authUser=\App\Models\User::find($ids);
                 $total_user   = $authUser->user_usage;
-                $subscription = Subscription::find($authUser->subscription);
-                if(($total_user < $subscription->total_user) || $subscription->total_user == 0)
+                $subscription = Subscription::find($authenticated->subscription);
+                if($authenticated->awsCustomer || ($total_user < $subscription->total_user) || $subscription->total_user == 0)
                 {
                     $role_r          = Role::findById($request->role);
                     $user            = new User();
@@ -119,6 +121,15 @@ class UserController extends Controller
                     $user->save();
 
                     $user->assignRole($role_r);
+
+                    if ($authenticated->awsCustomer) {
+                        AwsUsage::create([
+                            'subscription_id' => $authenticated->subscription,
+                            'aws_customer_id' => $authenticated->awsCustomer->id,
+                            'dimension' => 'user',
+                            'usage' => 1
+                        ]);
+                    }
 
                     $authUser->user_usage++;
                     $authUser->save();

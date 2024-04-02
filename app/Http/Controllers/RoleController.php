@@ -16,7 +16,6 @@ class RoleController extends Controller
         {
 
             $roles = Role::where('parent_id', '=', \Auth::user()->parentId())->get();
-
             return view('role.index', compact('roles'));
         }
         else
@@ -80,6 +79,7 @@ class RoleController extends Controller
             {
                 $p = Permission::where('id', '=', $permission)->firstOrFail();
                 $role->givePermissionTo($p);
+                $p->assignRole($role);
             }
 
             return redirect()->back()->with('success', __('Role successfully created!'));
@@ -161,6 +161,7 @@ class RoleController extends Controller
             {
                 $p = Permission::where('id', '=', $permission)->firstOrFail();
                 $role->givePermissionTo($p);
+                $p->assignRole($role);
             }
 
             return redirect()->back()->with('success', __('Role successfully updated!'));

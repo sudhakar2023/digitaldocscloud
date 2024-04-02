@@ -28,7 +28,7 @@
                             <div class="user-detailwrap">
                                 <h3>{{$loginUser->name}}</h3>
                                 <h6>{{ucfirst($loginUser->type)}}</h6>
-                                <h6 class="mt-5">{{$loginUser->email}}</h6>
+                                <h6 style="text-transform: lowercase;" class="mt-5">{{__(strtolower($loginUser->email ))}}</h6>
 
                             </div>
                         </div>

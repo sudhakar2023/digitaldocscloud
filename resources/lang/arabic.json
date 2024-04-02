@@ -413,7 +413,6 @@
   "Owners" : "المالكين ",
   "Contacts" : "جهات الاتصال ",
   "Supports" : "دعم ",
-  "Notes" : "Notes ",
   "Pricing" : "التسعير ",
   "Transactions" : "المعاملات ",
   "Settings" : "المحددات ",
@@ -444,5 +443,10 @@
   "Enter tag title" : "أدخل عنوان الشارة ",
   "Tag" : "شارة ",
   "Create Tag" : "تكوين شارة ",
-  "Edit Tag" : "تحرير شارة"
+  "Edit Tag" : "تحرير شارة",
+  "Basic": "أساسي",
+  "Standard": "معيار",
+  "Premium": "غالي",
+  "Monthly": "شهريا",
+  "Notes": "شهريا"
 }
